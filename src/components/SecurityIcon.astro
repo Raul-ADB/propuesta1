@@ -1,0 +1,57 @@
+---
+interface Props {
+  icon: 'lock' | 'safe' | 'shield';
+  delay?: string;
+}
+
+const { icon, delay = '0s' } = Astro.props;
+
+const icons = {
+  lock: {
+    viewBox: '0 0 24 24',
+    d: 'M12 1a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2h-1V6a5 5 0 0 0-5-5zm0 2a3 3 0 0 1 3 3v3H9V6a3 3 0 0 1 3-3zm0 10a2 2 0 1 1 0 4 2 2 0 0 1 0-4z',
+    label: 'Candado'
+  },
+  safe: {
+    viewBox: '0 0 24 24',
+    d: 'M3 4h18v16H3V4zm2 2v12h14V6H5zm6 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z',
+    label: 'Caja Fuerte'
+  },
+  shield: {
+    viewBox: '0 0 24 24',
+    d: 'M12 1l9 3v7c0 5.55-3.84 10.74-9 12-5.16-1.26-9-6.45-9-12V4l9-3z',
+    label: 'Escudo'
+  }
+};
+
+const iconData = icons[icon];
+---
+
+<div
+  class="group relative animate-fade-in opacity-0"
+  style={`animation-delay: ${delay}`}
+>
+  <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-3xl blur-lg opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+  <div class="relative bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-3xl p-4 shadow-lg shadow-yellow-500/40 group-hover:shadow-yellow-500/60 transition-all duration-300 transform group-hover:scale-110">
+    <svg class="w-10 h-10 text-slate-900" fill="currentColor" viewBox={iconData.viewBox}>
+      <path d={iconData.d}/>
+    </svg>
+  </div>
+</div>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 1s ease-out forwards;
+  }
+</style>
